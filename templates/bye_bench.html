@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>활기찬 3초 타이머</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #1a1a2e;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+      }
+      .timer-container {
+        position: relative;
+        width: 350px;
+        height: 350px;
+      }
+      .rotating-circle {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 4px solid #16213e;
+        border-radius: 50%;
+      }
+      @keyframes fadeOutSlow {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      #timer {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 5rem;
+        font-weight: bold;
+        color: #4ade80;
+        text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+        text-align: center;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="timer-container">
+      <div id="timer">고생하셨어요! 벤치프레스 결과를 분석해드릴게요!</div>
+    </div>
+    <script>
+      const timerElement = document.getElementById("timer");
+      const rotatingCircle = document.querySelector(".rotating-circle");
+
+      setTimeout(() => {
+        timerElement.style.opacity = "0";
+        setTimeout(() => {
+          window.location.href = "/feedback_bench/";
+        }, 1000);
+      }, 3000);
+    </script>
+  </body>
+</html>

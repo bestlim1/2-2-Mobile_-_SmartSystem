@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>활기찬 3초 타이머</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #1a1a2e;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+      }
+      .timer-container {
+        position: relative;
+        width: 350px;
+        height: 350px;
+      }
+      .rotating-circle {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 4px solid #16213e;
+        border-top: 4px solid #4ade80;
+        border-radius: 50%;
+        animation: rotate 3s linear infinite;
+      }
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes fadeOutSlow {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      #timer {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 8rem;
+        font-weight: bold;
+        color: #4ade80;
+        text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+        text-align: center;
+        white-space: nowrap;
+      }
+      .pulse {
+        animation: pulse 0.5s ease-in-out;
+      }
+      @keyframes pulse {
+        0% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.1);
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="timer-container">
+      <div class="rotating-circle"></div>
+      <div id="timer">3초</div>
+    </div>
+    <script>
+      const timerElement = document.getElementById("timer");
+      const rotatingCircle = document.querySelector(".rotating-circle");
+      let seconds = 3;
+      function updateTimer() {
+        if (seconds > 0) {
+          timerElement.textContent = `${seconds}초`;
+          timerElement.classList.add("pulse");
+          setTimeout(() => {
+            timerElement.classList.remove("pulse");
+          }, 500);
+          seconds--;
+          setTimeout(updateTimer, 1000);
+        } else {
+          timerElement.textContent = "운동을 시작해주세요!";
+          timerElement.style.fontSize = "3.5rem";
+          rotatingCircle.style.animation = "fadeOutSlow 1.5s forwards";
+          setTimeout(() => {
+            window.location.href = "/squat/";
+          }, 2000);
+        }
+      }
+      updateTimer();
+    </script>
+  </body>
+</html>
