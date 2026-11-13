@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HELLNADO - 운동 피드백</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #0071e3;
+        --background-color: #000000;
+        --text-color: #f5f5f7;
+        --section-bg-color: #1d1d1f;
+        --border-color: #424245;
+      }
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue",
+          "Helvetica", "Arial", sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.47059;
+        font-weight: 400;
+        letter-spacing: -0.022em;
+      }
+      .container {
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 30px;
+        box-sizing: border-box;
+      }
+      .nav-wrapper {
+        background-color: rgba(29, 29, 31, 0.72);
+        backdrop-filter: saturate(180%) blur(20px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+      }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 44px;
+        padding: 0 30px;
+      }
+      nav .logo {
+        font-size: 21px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+      }
+      nav a {
+        color: var(--text-color);
+        text-decoration: none;
+        font-size: 12px;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+        display: flex;
+        align-items: center;
+      }
+      nav a:hover {
+        opacity: 1;
+      }
+      nav a i {
+        margin-right: 5px;
+      }
+      main {
+        padding-top: 88px;
+      }
+      h1,
+      h2,
+      h3 {
+        font-weight: 600;
+      }
+      h1 {
+        font-size: 56px;
+        line-height: 1.07143;
+        letter-spacing: -0.005em;
+        text-align: left;
+        margin-bottom: 40px;
+      }
+      h2 {
+        font-size: 28px;
+        line-height: 1.14286;
+        letter-spacing: 0.007em;
+        margin-bottom: 20px;
+      }
+      .feedback-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+      }
+      .feedback-section {
+        background-color: var(--section-bg-color);
+        border-radius: 18px;
+        padding: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .feedback-section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+      }
+      .feedback-section.wide {
+        grid-column: span 2;
+      }
+      #videoPlayer {
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .progress-bar {
+        background-color: var(--border-color);
+        border-radius: 100px;
+        height: 6px;
+        width: 100%;
+        margin-top: 10px;
+        overflow: hidden;
+      }
+      .progress {
+        background-color: var(--primary-color);
+        height: 100%;
+        border-radius: 100px;
+        transition: width 0.5s ease-in-out;
+      }
+      .goal-input {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+      }
+      .goal-input input {
+        flex-grow: 1;
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background-color: var(--section-bg-color);
+        color: var(--text-color);
+        font-size: 17px;
+        line-height: 1.23536;
+        font-weight: 400;
+        letter-spacing: -0.022em;
+      }
+      .goal-input button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 17px;
+        line-height: 1.17648;
+        font-weight: 400;
+        letter-spacing: -0.022em;
+        margin-left: 10px;
+        transition: background-color 0.3s ease;
+      }
+      .goal-input button:hover {
+        background-color: #0077ed;
+      }
+      @media (max-width: 1200px) {
+        .feedback-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .feedback-section.wide {
+          grid-column: span 1;
+        }
+      }
+      @media (max-width: 768px) {
+        .feedback-grid {
+          grid-template-columns: 1fr;
+        }
+        h1 {
+          font-size: 40px;
+        }
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .feedback-section {
+        animation: fadeInUp 0.6s ease-out forwards;
+        opacity: 0;
+      }
+      .feedback-section:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .feedback-section:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .feedback-section:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .feedback-section:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .feedback-section:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <a href="#" onclick="window.open('/')"
+          ><i class="fas fa-dumbbell"></i> HELLNADO</a
+        >
+        <a href="#"><i class="fas fa-user"></i> 프로필</a>
+      </nav>
+    </div>
+    <main>
+      <div class="container">
+        <h1>벤치 피드백</h1>
+        <div class="feedback-grid">
+          <div class="feedback-section wide">
+            <h2>운동 영상 리뷰</h2>
+            <video id="videoPlayer" controls>
+              <source src="" type="video/mp4" />
+              <source src="" type="video/webm" />
+              <source src="" type="video/ogg" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="feedback-section">
+            <h2>운동 요약</h2>
+            <p>총 운동 시간: <span id="totalTime">0</span>분</p>
+            <p>완료한 세트: <span id="completedSets">0</span></p>
+            <p>총 반복 횟수: <span id="totalReps">0</span></p>
+          </div>
+          <div class="feedback-section">
+            <h2>성과</h2>
+            <p>목표 대비 달성률:</p>
+            <div class="progress-bar">
+              <div
+                id="achievementProgress"
+                class="progress"
+                style="width: 0%"
+              ></div>
+            </div>
+            <p id="achievementText"></p>
+          </div>
+          <div class="feedback-section">
+            <h2>개선점</h2>
+            <ul id="improvementPoints"></ul>
+          </div>
+          <div class="feedback-section">
+            <h2>다음 목표 설정</h2>
+            <div class="goal-input">
+              <input
+                type="number"
+                id="nextGoal"
+                placeholder="다음 목표 반복 횟수"
+              />
+              <button onclick="setNextGoal()">목표 설정</button>
+            </div>
+            <p id="goalMessage"></p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const exerciseData = {
+        totalTime: 30,
+        completedSets: 3,
+        totalReps: 45,
+        goalReps: 50,
+      };
+
+      function updateFeedback() {
+        document.getElementById("totalTime").textContent =
+          exerciseData.totalTime;
+        document.getElementById("completedSets").textContent =
+          exerciseData.completedSets;
+        document.getElementById("totalReps").textContent =
+          exerciseData.totalReps;
+
+        const achievementPercent =
+          (exerciseData.totalReps / exerciseData.goalReps) * 100;
+        document.getElementById(
+          "achievementProgress"
+        ).style.width = `${Math.min(achievementPercent, 100)}%`;
+
+        let achievementText = "";
+        if (achievementPercent >= 100) {
+          achievementText = "목표를 달성하셨습니다! 대단합니다!";
+        } else if (achievementPercent >= 80) {
+          achievementText = "목표에 거의 도달하셨습니다. 조금만 더 노력하세요!";
+        } else {
+          achievementText = "아직 목표까지 갈 길이 있습니다. 계속 노력하세요!";
+        }
+        document.getElementById("achievementText").textContent =
+          achievementText;
+
+        const improvementPoints = [
+          "운동 중 호흡에 더 집중해보세요.",
+          "각 동작의 폼을 개선하면 효과가 더 좋아질 것입니다.",
+          "운동 사이의 휴식 시간을 조절해보세요.",
+        ];
+        const ulElement = document.getElementById("improvementPoints");
+        ulElement.innerHTML = ""; // Clear existing list items
+        improvementPoints.forEach((point) => {
+          const li = document.createElement("li");
+          li.textContent = point;
+          ulElement.appendChild(li);
+        });
+      }
+
+      function setNextGoal() {
+        const nextGoal = document.getElementById("nextGoal").value;
+        if (nextGoal) {
+          document.getElementById(
+            "goalMessage"
+          ).textContent = `다음 운동의 목표가 ${nextGoal}회로 설정되었습니다. 화이팅!`;
+        } else {
+          document.getElementById("goalMessage").textContent =
+            "올바른 목표 횟수를 입력해주세요.";
+        }
+      }
+
+      function loadLatestVideo() {
+        fetch("/api/latest-video") // 서버에서 최신 영상을 가져오는 API 경로
+          .then((response) => response.json())
+          .then((data) => {
+            const videoFileName = data.file_name;
+            const videoPlayer = document.getElementById("videoPlayer");
+            videoPlayer.querySelector(
+              "source"
+            ).src = `/videos/${videoFileName}`;
+            videoPlayer.load(); // 비디오 태그에 최신 영상 로드
+          })
+          .catch((error) => console.error("Error loading video:", error));
+      }
+
+      window.onload = function () {
+        updateFeedback();
+        loadLatestVideo(); // 최신 영상을 불러옴
+      };
+    </script>
+  </body>
+</html>

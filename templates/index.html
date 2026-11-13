@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HELLNADO - 당신의 스마트 헬스케어 파트너</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #007aff;
+        --background-color: #000;
+        --text-color: #f5f5f7;
+      }
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: "SF Pro KR", "SF Pro Text", "SF Pro Icons", "Apple Gothic",
+          "HY Gulim", "MalgunGothic", "HY Dotum", "Lexi Gulim", "Helvetica Neue",
+          "Helvetica", "Arial", sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .nav-wrapper {
+        background-color: rgba(0, 0, 0, 0.8);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+      }
+      nav {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: 70px;
+        padding: 0 20px;
+      }
+
+      nav .logo {
+        font-size: 28px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+      }
+
+      nav .menu {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+      }
+
+      nav a {
+        color: var(--text-color);
+        text-decoration: none;
+        font-size: 18px;
+        opacity: 0.8;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        display: flex;
+        align-items: center;
+      }
+      nav a:hover {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+      nav a i {
+        margin-right: 5px;
+      }
+      main {
+        padding-top: 70px;
+      }
+      .hero {
+        position: relative;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: #fff;
+        background-image: url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80");
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        padding: 20px;
+      }
+      h1 {
+        font-size: 64px;
+        line-height: 1.07143;
+        font-weight: 600;
+        letter-spacing: -0.005em;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      h2 {
+        font-size: 32px;
+        line-height: 1.10722;
+        font-weight: 400;
+        letter-spacing: 0.004em;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        margin-bottom: 30px;
+      }
+      h3 {
+        font-size: 50px;
+        line-height: 1.10722;
+        font-weight: 400;
+        letter-spacing: 0.004em;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        margin-bottom: 30px;
+      }
+      .smart-healthcare {
+        padding: 100px 0;
+        background-color: #1a1a1a;
+      }
+      .smart-healthcare-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .smart-healthcare-text {
+        flex: 1;
+        min-width: 300px;
+        padding-right: 40px;
+      }
+      .smart-healthcare-image {
+        flex: 1;
+        min-width: 300px;
+        text-align: center;
+      }
+      .smart-healthcare-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+      .features {
+        padding: 100px 0;
+        background-color: var(--background-color);
+      }
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+      }
+      .feature {
+        text-align: center;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+      }
+      .feature:hover {
+        transform: translateY(-10px);
+      }
+      .feature img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 20px;
+      }
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      .animate-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 48px;
+        }
+        h2 {
+          font-size: 24px;
+        }
+        .smart-healthcare-text,
+        .smart-healthcare-image {
+          flex: 100%;
+          padding-right: 0;
+          margin-bottom: 40px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <a href="#" onclick="window.open('timer_squat/')"
+          ><i class="fas fa-dumbbell"></i> 스쿼트 시작!</a
+        >
+        <div class="menu">
+          <a href="#" onclick="window.open('feedback_squat/')"
+            ><i class="fas fa-play"></i> </a
+          >
+        </div>
+      </nav>
+    </div>
+    <main>
+      <section class="hero">
+        <div class="hero-content animate-on-scroll">
+          <h1>HELLNADO</h1>
+          <h2>당신의 스마트 헬스케어 파트너</h2>
+          <h3>발판위에 서서 운동을 시작해주세요</h3>
+        </div>
+      </section>
+      <section class="smart-healthcare">
+        <div class="container">
+          <div class="smart-healthcare-content animate-on-scroll">
+            <div class="smart-healthcare-text">
+              <h2>스마트 헬스케어의 필요성과 의미</h2>
+              <p>
+                스마트 헬스케어는 현대 사회에서 더욱 중요해지고 있습니다. 바쁜
+                일상 속에서 건강 관리의 어려움, 개인별 맞춤 건강 솔루션의
+                필요성, 그리고 예방 중심의 건강 관리 트렌드가 증가하면서 스마트
+                헬스케어의 역할이 커지고 있습니다.
+              </p>
+              <p>
+                HELLNADO는 최신 기술을 활용하여 개인의 건강 상태를 실시간으로
+                모니터링하고, 데이터를 분석하여 맞춤형 건강 관리 서비스를
+                제공합니다. 이를 통해 더 효과적이고 개인화된 건강 관리가
+                가능해집니다.
+              </p>
+            </div>
+            <div class="smart-healthcare-image">
+              <img
+                src="https://images.unsplash.com/photo-1580086319619-3ed498161c77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                alt="스마트 헬스케어"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="features">
+        <div class="container">
+          <h2 class="animate-on-scroll">HELLNADO의 주요 기능</h2>
+          <div class="features-grid">
+            <div class="feature animate-on-scroll">
+              <img
+                src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80"
+                alt="개인 맞춤 운동"
+              />
+              <h3>개인 맞춤 운동</h3>
+              <p>
+                당신의 몸 상태와 목표에 맞는 최적의 운동 프로그램을 제공합니다.
+              </p>
+            </div>
+            <div class="feature animate-on-scroll">
+              <img
+                src="https://images.unsplash.com/photo-1554244933-d876deb6b2ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80"
+                alt="실시간 자세 교정"
+              />
+              <h3>실시간 자세 교정</h3>
+              <p>
+                AI 기술을 활용한 실시간 자세 교정으로 효과적이고 안전한 운동을
+                도와드립니다.
+              </p>
+            </div>
+            <div class="feature animate-on-scroll">
+              <img
+                src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+                alt="전문가 코칭"
+              />
+              <h3>전문가 코칭</h3>
+              <p>
+                경험 많은 전문 코치들의 1:1 온라인 코칭으로 더 나은 결과를
+                얻으세요.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script>
+      const animateOnScrollObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+
+              setTimeout(() => {
+                entry.target.classList.remove("is-visible");
+                requestAnimationFrame(() => {
+                  entry.target.classList.add("is-visible");
+                });
+              }, 50);
+            } else {
+              entry.target.classList.remove("is-visible");
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+          rootMargin: "0px 0px -10% 0px",
+        }
+      );
+
+      document.querySelectorAll(".animate-on-scroll").forEach((element) => {
+        animateOnScrollObserver.observe(element);
+      });
+
+      // 페이지가 로드될 때 플래그 확인
+      function checkRedirect() {
+        fetch("/check_redirect")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.redirect) {
+              window.location.href = "/timer/";
+            }
+          });
+      }
+
+      // 페이지 로드 시 플래그 확인
+      document.addEventListener("DOMContentLoaded", checkRedirect);
+    </script>
+  </body>
+</html>
